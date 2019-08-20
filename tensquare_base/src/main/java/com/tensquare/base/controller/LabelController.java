@@ -1,4 +1,4 @@
-package com.tensquare.base.Controller;
+package com.tensquare.base.controller;
 
 import com.tensquare.base.pojo.Label;
 import com.tensquare.base.service.LabelService;
@@ -86,6 +86,13 @@ public class LabelController {
         return new Result(true, StatusCode.OK, "查询成功",list);
     }
 
+    /**
+     * 根据查询条件进行分页
+     * @param label
+     * @param page
+     * @param size
+     * @return
+     */
     @RequestMapping(value = "/search/{page}/{size}", method = RequestMethod.POST)
     public Result pageQuery (@RequestBody Label label, @PathVariable int page, @PathVariable int size) {
         Page pageList = labelService.pageQuery(label, page, size);

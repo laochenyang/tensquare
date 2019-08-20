@@ -1,4 +1,4 @@
-package com.tensquare.base.Controller;
+package com.tensquare.recruit.controller;
 
 import entity.Result;
 import entity.StatusCode;
@@ -6,11 +6,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
- * 公共异常处理类
+ * 统一异常处理
  */
 @RestControllerAdvice
 public class BaseExceptionHandler {
-
     @ExceptionHandler(value = Exception.class)
     public Result exception(Exception e) {
         e.printStackTrace();
