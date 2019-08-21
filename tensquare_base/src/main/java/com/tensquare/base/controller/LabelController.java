@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * 测试当前提交是否进入了分子
- */
-
 @RestController
 @RequestMapping(value = "/label")
 public class LabelController {
