@@ -26,6 +26,42 @@ public class ProblemService {
     @Autowired
     private IdWorker idWorker;
 
+    /**
+     * 根据标签ID 查询最新的问题列表
+     * @param labelId
+     * @param page
+     * @param size
+     * @return
+     */
+    public Page<Problem> findNewListByLabelId(String labelId, int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return problemDao.findNewListByLabelId(labelId, pageable);
+    }
+
+    /**
+     * 根据标签ID 查询热门问题列表
+     * @param labelId
+     * @param page
+     * @param size
+     * @return
+     */
+    public Page<Problem> findHotListByLabelId(String labelId, int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return problemDao.findHotListByLabelId(labelId, pageable);
+    }
+
+    /**
+     * 根据标签id 查询等待回答问题列表
+     * @param labelId
+     * @param page
+     * @param size
+     * @return
+     */
+    public Page<Problem> findWaitListByLabelId(String labelId, int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return problemDao.findWaitListByLabelId(labelId, pageable);
+    }
+
     public List<Problem> findAll() {
         return problemDao.findAll();
     }

@@ -18,6 +18,45 @@ public class ProblemController {
     @Autowired
     private ProblemService problemService;
 
+    /**
+     * 根据标签ID 查询最新的问题列表
+     * @param labelId
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/newlist/{labelId}/{page}/{size}", method = RequestMethod.GET)
+    public Result findNewListByLabelId(@PathVariable String labelId, @PathVariable int page, @PathVariable int size) {
+        Page pageList = problemService.findNewListByLabelId(labelId, page, size);
+        return new Result(true, StatusCode.OK, "查询成功", new PageResult<Problem>(pageList.getTotalElements(), pageList.getContent()));
+    }
+
+    /**
+     * 根据标签Id 查询热门问题题列表
+     * @param labelId
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/hotlist/{labelId}/{page}/{size}", method = RequestMethod.GET)
+    public Result findHotListByLabelId(@PathVariable String labelId, @PathVariable int page, @PathVariable int size) {
+        Page pageList = problemService.findHotListByLabelId(labelId, page, size);
+        return new Result(true, StatusCode.OK, "查询成功", new PageResult<Problem>(pageList.getTotalElements(), pageList.getContent()));
+    }
+
+    /**
+     * 根据标签ID 查询等待回答问题列表
+     * @param labelId
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/newhotlist/{labelId}/{page}/{size}", method = RequestMethod.GET)
+    public Result findWaitListByLabelId(@PathVariable String labelId, @PathVariable int page, @PathVariable int size) {
+        Page pageList = problemService.findWaitListByLabelId(labelId, page, size);
+        return new Result(true, StatusCode.OK, "查询成功", new PageResult<Problem>(pageList.getTotalElements(), pageList.getContent()));
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public Result findAll() {
         return new Result(true, StatusCode.OK, "查询成功", problemService.findAll());
