@@ -25,7 +25,7 @@ public class ReplyController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Result findById(String id) {
-        return new Result(true, StatusCode.OK, "查询c成功", replyService.findById(id));
+        return new Result(true, StatusCode.OK, "查询成功", replyService.findById(id));
     }
 
     @RequestMapping(method = RequestMethod.POST)
