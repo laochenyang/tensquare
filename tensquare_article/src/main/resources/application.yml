@@ -7,10 +7,16 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.25.135:3306/tensquare_article?CharacterEncoding=utf-8
     username: root
-    password: root
+    password: 123456
   redis:
     host: 192.168.25.135
   jpa:
     database: mysql
     show-sql: true
     generate-ddl: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:6868/eureka/
+  instance:
+    prefer-ip-address: true

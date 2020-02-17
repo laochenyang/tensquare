@@ -1,5 +1,6 @@
 package com.tensquare.qa.controller;
 
+import com.tensquare.qa.client.BaseClient;
 import com.tensquare.qa.pojo.Problem;
 import com.tensquare.qa.service.ProblemService;
 import entity.PageResult;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,12 @@ import java.util.Map;
 public class ProblemController {
     @Autowired
     private ProblemService problemService;
+
+    @Autowired
+    private HttpServletRequest request;
+
+    @Autowired
+    private BaseClient baseClient;
 
     /**
      * 根据标签ID 查询最新的问题列表
@@ -69,6 +77,10 @@ public class ProblemController {
 
     @RequestMapping(method = RequestMethod.POST)
     public Result add(@RequestBody Problem problem) {
+        String token = (String) request.getAttribute("claims_user");
+        if (token.isEmpty()) {
+            return new Result(false, StatusCode.ACCESSERROR, "权限不足！");
+        }
         problemService.add(problem);
         return new Result(true, StatusCode.OK, "保存成功");
     }
@@ -96,5 +108,11 @@ public class ProblemController {
     public Result pageQuery(@RequestBody Map searchMap, @PathVariable int page, @PathVariable int size) {
         Page pageList = problemService.pageQuery(searchMap, page, size);
         return new Result(true, StatusCode.OK, "查询成功", new PageResult<Problem>(pageList.getTotalElements(), pageList.getContent()));
+    }
+
+    @RequestMapping(value = "/label/{labelId}", method = RequestMethod.GET)
+    public Result findByLabelId(@PathVariable String labelId) {
+        Result result = baseClient.findById(labelId);
+        return result;
     }
 }

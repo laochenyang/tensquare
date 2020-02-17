@@ -1,0 +1,13 @@
+server:
+  port: 9009
+spring:
+  application:
+    name: tensquare_sms
+  rabbitmq:
+    host: 192.168.25.135
+aliyun:
+  sms:
+    accessKeyId: LTAIIGl160sUmzCW
+    accessKeySecret: pI6yNkYWQBDaTaXM2ijNzgNGWH4HzB
+    template_code: SMS_183267908
+    sign_name: 追影子的人
